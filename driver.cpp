@@ -1,11 +1,14 @@
 #include "BinaryTree.h"
 #include "Pokemon.h"
+#include <iomanip>
+#include <string>
 using namespace std;
 
 int main() {
     BinaryTree<Pokemon> pokedex;
     ifstream inputFile("pokedex.txt");
     string name;
+    string id;
     int index = 0;
     int numOfPokemon = 0;
     if(!inputFile){
@@ -13,15 +16,18 @@ int main() {
         return -1;
     }
 
-    while(inputFile >> index >> name){
-        Pokemon pokemon(index, name);
-        if(!pokedex.searchNode(pokemon)){
-            pokedex.insertNode(pokemon);
-            cout << "Inserting Pokemon with index " << index << "into the Pokedex. " << endl;
-            numOfPokemon ++;
-        }
-        else{
-            cout << "Oops! The Pokemon with the index " << index << "is already in the Pokedex. " << endl; 
+    while(getline(inputFile, id, '#')) {
+        getline(inputFile, name, '#');
+        index = stoi(id);
+
+        Pokemon newPokemon(index, name);
+
+        if (!pokedex.searchNode(newPokemon)) {
+            pokedex.insertNode(newPokemon);
+            cout << "Inserting Pokemon with index " << index << " into the Pokedex." << endl;
+            numOfPokemon++;
+        } else {
+            cout << "Oops! The Pokemon with the index " << index << " is already in the Pokedex!" << endl;
         }
     }
 
