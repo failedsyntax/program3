@@ -2,6 +2,7 @@
 #define POKEMON_H
 
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -39,6 +40,7 @@ class Pokemon {
 
         friend ostream & operator<< (ostream& os, Pokemon Item) {
             os << "Pokemon ID: " << Item.getID() << "      |      Name: " << Item.getName() << endl;
+            return os;
         }
 
         friend bool operator== (const Pokemon &Left, const Pokemon &Right) {
